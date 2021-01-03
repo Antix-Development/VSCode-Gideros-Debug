@@ -1,5 +1,34 @@
-[한국어 문서 읽기](https://github.com/devcat-studio/VSCodeLuaDebug/blob/master/Extension/README_ko.md)
+# VSCode Gideros Debugger
 
+VSCode Gideros Debugger is a modified version of the [VSCodeLuaDebug](https://github.com/devcat-studio/VSCodeLuaDebug/blob/master/Extension/README.md) by [devCAT](https://github.com/devcat-studio) 
+
+## Installation
+
+From a terminal window, cd to the folder where the extensions .vsix file is located and execute the following command...
+
+    code --install-extension gideros-debug-1.0.0.vsix
+
+Optionally you can grab the fantastic [Install .VSIX](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-install-vsix) extension by [Fabio Spampinato](https://marketplace.visualstudio.com/publishers/fabiospampinato), then right-click the extension and install directly from the context menu inside VSCode.
+
+
+By default 
+You will need to edit the *launch.json* 
+
+
+
+Plastic Lua Wrap 
+
+color theme by Zack Reithmeyer, which is its self an unofficial port of [Plastic Code Wrap](https://github.com/joedf/PlasticCodeWrap) by Joe DF, which strangely enough is yet another port of the PlasticCodeWrap color theme from textMate, which I am unable to find a link to.
+
+
+
+## Usage
+Once Plastic Lua Wrap is installed, you can activate its color theme by clicking the *"Set Color Theme"* button in the extensions info screen, which can be accessed by selecting *"View > Extensions"* or press *"CTRL + SHIFT + X"*, then locating and clicking on the Plastic Lua Wrap extension in the extension panel.
+
+Optionally you can use the *"File > Preferences > Color Theme"* menu option and select *"PlasticLuaWrap"* from the list of instaled color themes.
+
+## Help and Bugs
+Feel free to open an issue if you have issues or questions just head on over to the [issues page](https://github.com/Antix-Development/Plastic-Lua-Wrap/issues) on the Plastic Lua Wrap repository.
 # Introduction
 
 You can use the Lua Debugger extension to debug Lua programs with Visual Studio Code.
