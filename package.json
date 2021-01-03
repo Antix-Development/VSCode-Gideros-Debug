@@ -1,0 +1,187 @@
+{
+	"name": "gideros-debug",
+	"displayName": "Gideros Debugger",
+	"version": "1.0.0",
+  "publisher": "antixdevelopment",
+	"icon": "images/icon.png",
+	"description": "Visual Studio Code debugger extension for Gideros",
+	"license": "MIT",
+  "keywords": ["gideros", "lua", "debugger"],
+  "preview": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Antix-Development/VSCode-Gideros-Debug"
+  },
+  "bugs": {
+      "url": "https://github.com/Antix-Development/VSCode-Gideros-Debug/issues"
+  },
+  "categories": [
+		"Debuggers"
+	],
+	"author": {
+		"name": "Antix Development"
+	},
+  "private": true,
+	"scripts": {},
+	"engines": {
+		"vscode": "^1.50.0"
+	},
+	"dependencies": {},
+	"devDependencies": {},
+	"contributes": {
+		"debuggers": [
+			{
+				"type": "lua",
+				"label": "Gideros Player",
+				"enableBreakpointsFor": {
+					"languageIds": [
+						"lua"
+					]
+				},
+				"program": "./DebugAdapter.exe",
+				"osx": {
+					"runtime": "mono"
+				},
+				"linux": {
+					"runtime": "mono"
+				},
+				"initialConfigurations": [
+					{
+						"name": "launch-gideros",
+						"type": "lua",
+						"request": "launch",
+						"workingDirectory": "${workspaceRoot}",
+						"giderosPath": "C:/Gideros",
+						"gprojPath": "${workspaceRoot}/GPROJ.gproj",
+						"jumpToGiderosErrorPosition": false,
+						"stopGiderosWhenDebuggerStops": true,
+						"listenPublicly": false,
+						"listenPort": 56789,
+						"encoding": "UTF-8"
+					},
+					{
+						"name": "wait",
+						"type": "lua",
+						"request": "attach",
+						"workingDirectory": "${workspaceRoot}",
+						"sourceBasePath": "${workspaceRoot}",
+						"listenPublicly": false,
+						"listenPort": 56789,
+						"encoding": "UTF-8"
+					}
+				],
+				"configurationAttributes": {
+					"launch": {
+						"required": [
+							"name",
+							"type",
+							"request",
+							"workingDirectory",
+							"listenPublicly",
+							"listenPort"
+						],
+						"properties": {
+							"giderosPath": {
+								"type": "string",
+								"description": "Gideros installation directory",
+								"default": "c:/gideros"
+							},
+							"gprojPath": {
+								"type": "string",
+								"description": "Path of .gproj file",
+								"default": "${workspaceRoot}/GPROJ.gproj"
+							},
+							"jumpToGiderosErrorPosition": {
+								"type": "boolean",
+								"description": "Sets whether to jump directly to the source file if it encounters a Gideros error message.",
+								"default": false
+							},
+							"stopGiderosWhenDebuggerStops": {
+								"type": "boolean",
+								"description": "Stops Gideros Player when debug adapter stops.",
+								"default": false
+							},
+							"workingDirectory": {
+								"type": "string",
+								"description": "Working directory",
+								"default": "${workspaceRoot}"
+							},
+							"sourceBasePath": {
+								"type": "string",
+								"description": "Base path of lua source files",
+								"default": "${workspaceRoot}"
+							},
+							"executable": {
+								"type": "string",
+								"description": "An exe file to launch",
+								"default": "${workspaceRoot}/lua.exe"
+							},
+							"arguments": {
+								"type": "string",
+								"description": "Command line arguments for executable",
+								"default": "main.lua"
+							},
+							"env": {
+								"type": "object",
+								"description": "Environment variables for executable",
+								"default": {}
+							},
+							"listenPublicly": {
+								"type": "boolean",
+								"description": "Set this to false",
+								"default": false
+							},
+							"listenPort": {
+								"type": "integer",
+								"description": "Local TCP port to communicate between debug adapter and debuggee",
+								"default": 56789
+							},
+							"encoding": {
+								"type": "string",
+								"description": "Encoding of the debuggee. (Example: 'UTF-8', '949')",
+								"default": "UTF-8"
+							}
+						}
+					},
+					"attach": {
+						"required": [
+							"name",
+							"type",
+							"request",
+							"workingDirectory",
+							"listenPublicly",
+							"listenPort"
+						],
+						"properties": {
+							"workingDirectory": {
+								"type": "string",
+								"description": "Working directory",
+								"default": "${workspaceRoot}"
+							},
+							"sourceBasePath": {
+								"type": "string",
+								"description": "Base path of lua source files",
+								"default": "${workspaceRoot}"
+							},
+							"listenPublicly": {
+								"type": "boolean",
+								"description": "Set this to true if the debuggee will run in different computer.",
+								"default": false
+							},
+							"listenPort": {
+								"type": "integer",
+								"description": "Local TCP port to communicate between debug adapter and debuggee.",
+								"default": 56789
+							},
+							"encoding": {
+								"type": "string",
+								"description": "Encoding of the debuggee. (Example: 'UTF-8', '949')",
+								"default": "UTF-8"
+							}
+						}
+					}
+				}
+			}
+		]
+	}
+}
