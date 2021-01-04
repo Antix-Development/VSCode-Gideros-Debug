@@ -2,7 +2,7 @@
 
 Gideros Debugger is a modified version of the [VSCodeLuaDebug](https://github.com/devcat-studio/VSCodeLuaDebug/blob/master/Extension/README.md) by [devCAT](https://github.com/devcat-studio).
 
-It's function is to enable Gideros projects to be launched from within VSCode.
+Gideros Debugger exists to enable Gideros projects to be launched from within VSCode.
 
 ## Installation
 
@@ -25,6 +25,8 @@ The *launch.json* file will be created and opened for you in a new VSCode editor
 Edit the filename to match the name of your projects .gproj file, and change the path to your Gideros instalation path. Save the *launch.json* file, and close it's editor tab.
 
 You can now press *F5* and your Gideros project should be launched inside the Gideros Player.
+
+_Note_ Any output from your project will appear in VSCodes *DEBUG CONSOLE*. You will also 
 
 If your project didn't launch
 

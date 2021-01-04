@@ -19,6 +19,7 @@ namespace GiderosPlayerRemote
         public int ReceiveMore()
         {
             // 절반 이상 차면 두 배로
+            // If more than half full, double
             if (bufferEnd >= buffer.Length / 2)
             {
                 byte[] newBuf = new byte[buffer.Length * 2];
@@ -27,6 +28,7 @@ namespace GiderosPlayerRemote
             }
 
             // 받는다
+            // Receive
             SocketError serr;
             int rcvd = soc.Receive(
                 buffer,

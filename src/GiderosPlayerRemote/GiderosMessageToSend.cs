@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GiderosPlayerRemote
 {
-    class GiderosMessageToSend
+      class GiderosMessageToSend
     {
         int seqId;
         MemoryStream bodyStream;
