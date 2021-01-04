@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.0.1] - 05-01-2021
+Changes
+- Updated readme
 ## [1.0.0] - 05-01-2021
 - Initial release
 

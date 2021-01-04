@@ -4,14 +4,6 @@ Gideros Debugger is a modified version of the [VSCodeLuaDebug](https://github.co
 
 Gideros Debugger exists to enable Gideros projects to be launched from within VSCode.
 
-## Installation
-
-From a terminal window, cd to the folder where the extensions .vsix file is located and execute the following command...
-
-    code --install-extension gideros-debug-1.0.0.vsix
-
-Optionally you can first install the [Install .VSIX](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-install-vsix) extension by [Fabio Spampinato](https://marketplace.visualstudio.com/publishers/fabiospampinato), then right-click the extension and install directly from the context menu inside VSCode.
-
 ## Usage
 Open your Gideros project folder in VSCode using the *File > Open Folder* menu option or the *CTRL + K CTRL + O* hotkey combination.
 
@@ -26,9 +18,10 @@ Edit the filename to match the name of your projects .gproj file, and change the
 
 You can now press *F5* and your Gideros project should be launched inside the Gideros Player.
 
-_Note_ Any output from your project will appear in VSCodes *DEBUG CONSOLE*. You will also 
+If your project didn't launch, review the above steps and if it still doesn't work... raise an issue in GitHub, or browse to the [Gideros Forum thread](http://forum.giderosmobile.com/discussion/8382/gideros-vscode-integration) for this extension.
 
-If your project didn't launch
+_Note_ Any output from your project will appear in VSCodes *DEBUG CONSOLE*.
 
 ## Help and Bugs
 Feel free to open an issue if you have issues or questions. Just head on over to the [issues page](https://github.com/Antix-Development/VSCode-Gideros-Debug/issues) on the Gideros Debugger repository.
+
