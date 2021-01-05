@@ -1,7 +1,7 @@
 {
 	"name": "gideros-debug",
 	"displayName": "Gideros Debugger",
-	"version": "1.0.1",
+	"version": "1.0.2",
   "publisher": "antixdevelopment",
 	"icon": "images/icon.png",
 	"description": "Visual Studio Code debugger extension for Gideros",
@@ -50,9 +50,9 @@
 						"name": "launch-gideros",
 						"type": "lua",
 						"request": "launch",
-						"workingDirectory": "${workspaceRoot}",
+						"workingDirectory": "${workspaceFolder}",
 						"giderosPath": "C:/Gideros",
-						"gprojPath": "${workspaceRoot}/GPROJ.gproj",
+						"gprojPath": "${workspaceFolder}/${workspaceFolderBasename}.gproj",
 						"jumpToGiderosErrorPosition": false,
 						"stopGiderosWhenDebuggerStops": true,
 						"listenPublicly": false,
@@ -63,8 +63,8 @@
 						"name": "wait",
 						"type": "lua",
 						"request": "attach",
-						"workingDirectory": "${workspaceRoot}",
-						"sourceBasePath": "${workspaceRoot}",
+						"workingDirectory": "${workspaceFolder}",
+						"sourceBasePath": "${workspaceFolder}",
 						"listenPublicly": false,
 						"listenPort": 56789,
 						"encoding": "UTF-8"
@@ -89,7 +89,7 @@
 							"gprojPath": {
 								"type": "string",
 								"description": "Path of .gproj file",
-								"default": "${workspaceRoot}/GPROJ.gproj"
+								"default": "${workspaceFolder}/GPROJ.gproj"
 							},
 							"jumpToGiderosErrorPosition": {
 								"type": "boolean",
@@ -104,17 +104,17 @@
 							"workingDirectory": {
 								"type": "string",
 								"description": "Working directory",
-								"default": "${workspaceRoot}"
+								"default": "${workspaceFolder}"
 							},
 							"sourceBasePath": {
 								"type": "string",
 								"description": "Base path of lua source files",
-								"default": "${workspaceRoot}"
+								"default": "${workspaceFolder}"
 							},
 							"executable": {
 								"type": "string",
 								"description": "An exe file to launch",
-								"default": "${workspaceRoot}/lua.exe"
+								"default": "${workspaceFolder}/lua.exe"
 							},
 							"arguments": {
 								"type": "string",
@@ -156,12 +156,12 @@
 							"workingDirectory": {
 								"type": "string",
 								"description": "Working directory",
-								"default": "${workspaceRoot}"
+								"default": "${workspaceFolder}"
 							},
 							"sourceBasePath": {
 								"type": "string",
 								"description": "Base path of lua source files",
-								"default": "${workspaceRoot}"
+								"default": "${workspaceFolder}"
 							},
 							"listenPublicly": {
 								"type": "boolean",

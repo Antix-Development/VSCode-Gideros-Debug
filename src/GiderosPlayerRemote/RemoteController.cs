@@ -296,11 +296,21 @@ namespace GiderosPlayerRemote {
           }
 
           string type = e.Name;
+          string fileName;
 
           if (type == "file") {
-            string fileName = e.HasAttribute("source")
-              ? e.GetAttribute("source")
-              : e.GetAttribute("file");
+            if (e.HasAttribute("source"))
+            {
+              fileName = e.GetAttribute("source");
+
+            } else {
+              fileName = e.GetAttribute("name");
+            }
+
+//            string fileName = e.HasAttribute("source")
+//              ? e.GetAttribute("source")
+//              : e.GetAttribute("file");
+
             string name = Path.GetFileName(fileName);
 
             string n = "";

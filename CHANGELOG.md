@@ -1,8 +1,19 @@
 # Change Log
 
+## [1.0.2] - 06-01-2021
+Fixes
+- Resolved [Access Denied](https://github.com/Antix-Development/VSCode-Gideros-Debug/issues/1) on project launch issue.
+
+Changes
+- Replaced depreciated ${workspaceRoot} entries in launch.jsonwith ${workspaceFolder}. Thanks @keszegh
+- Modified default launch.json configuration to use ${workspaceFolderBasename} for the gproj file name which negates the requirement to manually edit it. Thanks again @keszegh.
+
+
 ## [1.0.1] - 05-01-2021
 Changes
 - Updated readme
+
+
 ## [1.0.0] - 05-01-2021
 - Initial release
 
