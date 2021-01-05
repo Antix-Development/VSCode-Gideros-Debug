@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.0.4] - 06-01-2021
+Changes
+- Updated readme to reflect the fact that manual gproj file name editing is no longer required.
+
+
+## [1.0.3] - 06-01-2021
+Changes
+- Actually included the DLL file required to fix the "Access Denied" issue. Whoops!
+
+
 ## [1.0.2] - 06-01-2021
 Fixes
 - Resolved [Access Denied](https://github.com/Antix-Development/VSCode-Gideros-Debug/issues/1) on project launch issue.
