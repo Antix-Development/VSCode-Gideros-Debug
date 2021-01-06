@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace GiderosPlayerRemote {
@@ -47,19 +48,29 @@ namespace GiderosPlayerRemote {
         return true;           
       }
 
+
+
+
+
       public void ReadLoop() {
         var reader = new GiderosMessageReader(soc);
 
-        while (true) {
+      try
+      {
+
+        while (true)
+        {
           ReceivedGiderosMessage msg = reader.TryTakeMessageFromBuffer();
-          if (msg == null) {
+          if (msg == null)
+          {
             if (reader.ReceiveMore() == 0) { return; }
             continue;
           }
 
           byte msgType = msg.ReadByte();
 
-          switch (msgType) {
+          switch (msgType)
+          {
             case GiderosMessageType.Output:
               HandleOutput(msg);
               break;
@@ -73,6 +84,15 @@ namespace GiderosPlayerRemote {
               break;
           }
         }
+
+
+      }
+      catch (Exception)
+      {
+
+        throw new Exception("cunt fuck!!!!");
+      }
+
       }
 
       // Output Gideros print() statements to VSCode debug console
@@ -299,23 +319,18 @@ namespace GiderosPlayerRemote {
           string fileName;
 
           if (type == "file") {
-            if (e.HasAttribute("source"))
-            {
-              fileName = e.GetAttribute("source");
+//            if (e.HasAttribute("source")) {
+//              fileName = e.GetAttribute("source");
+//            } else {
+//              fileName = e.GetAttribute("name");
+//            }
 
-            } else {
-              fileName = e.GetAttribute("name");
-            }
-
-//            string fileName = e.HasAttribute("source")
-//              ? e.GetAttribute("source")
-//              : e.GetAttribute("file");
+            fileName = e.HasAttribute("source") ? e.GetAttribute("source") : e.GetAttribute("name");
 
             string name = Path.GetFileName(fileName);
 
             string n = "";
-            foreach (string d in dir)
-            {
+            foreach (string d in dir) {
               n += d + "/";
             }
             n += name;
@@ -324,18 +339,32 @@ namespace GiderosPlayerRemote {
 
             if (fileName.ToLower().EndsWith(".lua")) {
               bool excludeFromExecution = (e.HasAttribute("excludeFromExecution")) && (int.Parse(e.GetAttribute("excludeFromExecution")) != 0);
+
+              if (!excludeFromExecution) {
+
+                // 
+                // If the "excludeFromExecution" attribute is not present, check 
+                // if the first line of the file ends with the string "!NOEXEC", 
+                // and if it does, specify that the file should not be executed.
+                // 
+
+                string path = Path.GetDirectoryName(projectFileName);
+                string line1 = File.ReadLines(Path.GetFullPath(path) + "/" + fileName).First(); // Read first line of file
+                if (line1.EndsWith("!NOEXEC")) {
+                  excludeFromExecution = true;
+                }
+              }
               dependencyGraph.AddCode(fileName, excludeFromExecution);
             }
             continue;
-          }
+          } // end file type check
 
           if (type == "folder") {
             string name = e.GetAttribute("name");
             dir.Add(name);
 
             string n = "";
-            foreach (string d in dir)
-            {
+            foreach (string d in dir) {
               n += d + "/";
             }
             stack.Push(null);
@@ -355,8 +384,7 @@ namespace GiderosPlayerRemote {
           }
         }
 
-        foreach (var d in dependencies)
-        {
+        foreach (var d in dependencies) {
           dependencyGraph.AddDependency(d.Key, d.Value);
         }
       }

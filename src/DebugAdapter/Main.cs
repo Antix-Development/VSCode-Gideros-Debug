@@ -33,11 +33,10 @@ namespace VSCodeDebug
       }
     }
 
+    // 
+    // This gets run as a new thread by the UI (WaitingUI.cs)
     public static void DebugSessionLoop() {
       try {
-        // 우선 VS Code와의 통신을 조립한다.
-        // 디버기와의 통신은 launch 명령어 실행 이후에 조립한다.
-
         // First, assemble communication with VS Code.
         // Communication with the debugger is assembled after executing the launch command.
 
@@ -56,4 +55,5 @@ namespace VSCodeDebug
       }
     }
   } // End program class
+
 } // End namespace

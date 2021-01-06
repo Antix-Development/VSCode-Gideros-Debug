@@ -8,9 +8,10 @@ namespace VSCodeDebug {
 
     public WaitingUI() {
       InitializeComponent();
-      CenterToScreen();
 
-      Shown += WaitingUI_Shown;
+      //CenterToScreen();
+
+      Shown += WaitingUI_Shown; // Add event handlers
       FormClosing += WaitingUI_FormClosing;
     }
 
@@ -19,17 +20,22 @@ namespace VSCodeDebug {
       Environment.Exit(0);
     }
 
+    // 
+    // Once the UI is visible... launch DebugSessionLoop (from main.cs) in a new thread
     private void WaitingUI_Shown(object sender, EventArgs e) {
       new System.Threading.Thread(Program.DebugSessionLoop).Start();
     }
 
-    // Set text of main label in ui.
+    // 
+    // Set text of main label in the UI.
     public void SetLabelText(string s) {
       BeginInvoke(new Action(() => {
         label1.Text = s;
       }));
     }
 
+    // 
+    // Initialize UI
     private void InitializeComponent() {
       this.label1 = new System.Windows.Forms.Label();
       this.SuspendLayout();

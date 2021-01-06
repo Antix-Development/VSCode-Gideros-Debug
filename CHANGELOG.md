@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.0.6] - 06-01-2021
+Added
+- Extension now knows to exclude .lua files where the first line in the file ends with the string *"!NOEXEC"*
+
+
+## [1.0.5] - 06-01-2021
+Changes
+- Fixed the readme.
+
+
 ## [1.0.4] - 06-01-2021
 Changes
 - Updated readme to reflect the fact that manual gproj file name editing is no longer required.

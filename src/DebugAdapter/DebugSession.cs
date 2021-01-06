@@ -508,12 +508,10 @@ namespace VSCodeDebug
       }
     }
 
-    void IRemoteControllerListener.X_Log(LogType logType, string content)
-    {
+    void IRemoteControllerListener.X_Log(LogType logType, string content) {
       lock (this)
       {
-        switch (logType)
-        {
+        switch (logType) {
           case LogType.Info:
             toVSCode.SendOutput("console", content);
             break;
@@ -523,16 +521,13 @@ namespace VSCodeDebug
 
             // Gideros sends '\n' as seperate packet,
             // and VS Code adds linefeed to the end of each output message.
-            if (content == "\n")
-            {
+            if (content == "\n") {
                 bool looksLikeGiderosError = errorMatcher.Match(giderosStdoutBuffer).Success;
                 toVSCode.SendOutput(
                     (looksLikeGiderosError ? "stderr" : "stdout"),
                     giderosStdoutBuffer);
                 giderosStdoutBuffer = "";
-            }
-            else
-            {
+            } else {
                 giderosStdoutBuffer += content;
             }
             break;
@@ -545,20 +540,17 @@ namespace VSCodeDebug
     }
 
     protected static readonly Regex errorMatcher = new Regex(@"^([^:\n\r]+):(\d+): ");
-    void CheckGiderosOutput(string content)
-    {
+    void CheckGiderosOutput(string content) {
       Match m = errorMatcher.Match(content);
       if (!m.Success) { return; }
 
-      if (jumpToGiderosErrorPosition)
-      {
+      if (jumpToGiderosErrorPosition) {
         // Entering fake breakpoint mode:
         string file = m.Groups[1].ToString();
         int line = int.Parse(m.Groups[2].ToString());
         this.fakeBreakpointMode = new Tuple<string, int>(file, line);
 
-        if (startCommand != null)
-        {
+        if (startCommand != null) {
           SendResponse(startCommand, startSeq, null);
           toVSCode.SendMessage(new InitializedEvent());
           startCommand = null;

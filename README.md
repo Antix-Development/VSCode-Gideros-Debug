@@ -13,7 +13,7 @@ The *launch.json* file will be created and opened for you in a new VSCode editor
 
     "giderosPath": "C:/Gideros",
 
-Edit the filename to match the name of your projects .gproj file, then save the *launch.json* file, and close it's editor tab.
+Edit the path to the path where your Gideros installation is, then save the *launch.json* file, and close it's editor tab.
 
 You can now press *F5* and your Gideros project should be launched inside the Gideros Player.
 

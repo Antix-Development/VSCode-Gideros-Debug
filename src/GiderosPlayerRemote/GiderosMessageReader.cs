@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net.Sockets;
+using System.Windows.Forms;
 
 namespace GiderosPlayerRemote
 {
@@ -18,26 +19,36 @@ namespace GiderosPlayerRemote
 
         public int ReceiveMore()
         {
-            // 절반 이상 차면 두 배로
-            // If more than half full, double
-            if (bufferEnd >= buffer.Length / 2)
-            {
-                byte[] newBuf = new byte[buffer.Length * 2];
-                Array.Copy(buffer, newBuf, bufferEnd);
-                buffer = newBuf;
-            }
+      // 절반 이상 차면 두 배로
+      // If more than half full, double
+      try {
+        if (bufferEnd >= buffer.Length / 2)
+        {
+          byte[] newBuf = new byte[buffer.Length * 2];
+          Array.Copy(buffer, newBuf, bufferEnd);
+          buffer = newBuf;
+        }
 
-            // 받는다
-            // Receive
-            SocketError serr;
-            int rcvd = soc.Receive(
-                buffer,
-                bufferEnd,
-                buffer.Length - bufferEnd,
-                SocketFlags.None,
-                out serr);
-            if (serr == SocketError.Success)
-            {
+      } catch (Exception e) {
+        MessageBox.Show(e.ToString(), "buffer realloc fail");
+        throw;
+      }
+
+      // 받는다
+      // Receive
+      SocketError serr;
+      int rcvd;
+      try {
+        rcvd = soc.Receive(buffer, bufferEnd, buffer.Length - bufferEnd, SocketFlags.None, out serr);
+      }
+      catch (Exception e)
+      {
+        MessageBox.Show(e.ToString(), "receive error");
+        throw;
+      }
+
+
+      if (serr == SocketError.Success) {
                 /*
                 Console.WriteLine();
                 for (int i = 0; i < rcvd; ++i)
@@ -48,12 +59,11 @@ namespace GiderosPlayerRemote
                 */
                 bufferEnd += rcvd;
                 return rcvd;
+            } else {
+              MessageBox.Show(serr.ToString(), "socket error");
+              return 0;
             }
-            else
-            {
-                throw new Exception(serr.ToString());
-            }
-        }
+          }
 
         public ReceivedGiderosMessage TryTakeMessageFromBuffer()
         {

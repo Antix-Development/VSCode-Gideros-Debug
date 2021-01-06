@@ -1,7 +1,5 @@
-﻿namespace VSCodeDebug
-{
-    public interface IDebuggeeSender
-    {
-        void Send(string reqText);
-    }
+﻿namespace VSCodeDebug {
+  public interface IDebuggeeSender {
+    void Send(string reqText);
+  }
 }
