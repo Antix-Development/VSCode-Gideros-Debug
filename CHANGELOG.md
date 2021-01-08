@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.0.9] - 08-01-2021
+Changes
+- Yet again I forgot to include the fixed files *grrr*. This release now totally contains the fixes promised in 1.0.8 :)
+
 ## [1.0.8] - 08-01-2021
 Changes
 - Resolved [Lua based plugins not working](https://github.com/Antix-Development/VSCode-Gideros-Debug/issues/4) issue.
