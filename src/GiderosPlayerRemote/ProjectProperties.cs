@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace GiderosPlayerRemote {
 
   class ProjectProperties {
-
-    // Plugin options
-    //public List<KeyValuePair<string, string>> plugins;
 
     // Graphics options
     public int scaleMode;
@@ -65,8 +58,6 @@ namespace GiderosPlayerRemote {
 
     // set default values
     public void Clear() {
-      // Plugin options
-      //plugins = new List<KeyValuePair<string, string>>();
 
       // Graphics options
       scaleMode = 0;

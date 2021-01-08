@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.0.11] - 09-01-2021
+Fixed
+- Resolved [Disabled Deleted Lua extensions causing crash](https://github.com/Antix-Development/VSCode-Gideros-Debug/issues/7) issue. Disabled Lua extensions are no linger processed at all.
+
+
+## [1.0.10] - 08-01-2021
+Changes
+- Messed up wth the files again! How?! I am too stupid to be a programmer! This release now 101% contains the fixes promised in 1.0.8 :)
+
 ## [1.0.9] - 08-01-2021
 Changes
 - Yet again I forgot to include the fixed files *grrr*. This release now totally contains the fixes promised in 1.0.8 :)

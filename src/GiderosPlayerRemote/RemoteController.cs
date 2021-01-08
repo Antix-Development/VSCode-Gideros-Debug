@@ -95,7 +95,7 @@ namespace GiderosPlayerRemote {
 
       // Set the Gideros installation path which was passed by DebugAdapter.exe
       public void SetGiderosPath(string path) {
-        this.giderosPath = path;
+        giderosPath = path;
       }
     
       // Output Gideros print() statements to VSCode debug console
@@ -446,31 +446,36 @@ namespace GiderosPlayerRemote {
           string name = plugin.GetAttribute("name");
           bool enabled = (plugin.HasAttribute("enabled")) && (int.Parse(plugin.GetAttribute("enabled")) != 0);
 
-          //if (enabled) {
-          //}
+          if (enabled) {
+            string type = "DLL";
 
-          string type = "DLL";
+            if (!File.Exists(pluginPath + name + ".dll")) {
+              type = "LUA";
+              fileList.Add(new KeyValuePair<string, string>(name.ToLower() + ".lua", giderosPath + "/All Plugins/" + name + "/luaplugin/" + name.ToLower() + ".lua"));
+              //            dependencyGraph.AddCode(name, true);
+            }
+            logger.X_Log(LogType.Info, "plugin:" + name + " enabled:" + enabled.ToString() + " (" + type + " plugin)\n");
 
-          if (!File.Exists(pluginPath + name + ".dll")) {
-            type = "LUA";
-            fileList.Add(new KeyValuePair<string, string>(name.ToLower() + ".lua", giderosPath + "/All Plugins/" + name + "/luaplugin/" +  name.ToLower() + ".lua"));
-//            dependencyGraph.AddCode(name, true);
+
+            /*
+            if (File.Exists(pluginPath + name + ".dll"))
+            {
+              logger.X_Log(LogType.Info, "plugin:" + name + " enabled:" + enabled.ToString() + " (DLL plugin)\n");
+            }
+            else
+            {
+              logger.X_Log(LogType.Info, "plugin:" + name + " enabled:" + enabled.ToString() + " (LUA plugin)\n");
+              fileList.Add(new KeyValuePair<string, string>(name.ToLower() + ".lua", giderosPath + "/All Plugins/" + name + "/luaplugin/" + name.ToLower() + ".lua"));
+              //            dependencyGraph.AddCode(name, true);
+            }
+            */
+          
+          } else {
+            logger.X_Log(LogType.Info, "skipping disabled plugin:" + name + "\n");
+
           }
-          logger.X_Log(LogType.Info, "plugin:" + name + " enabled:" + enabled.ToString() + " (" + type + " plugin)\n");
 
 
-          /*
-          if (File.Exists(pluginPath + name + ".dll"))
-          {
-            logger.X_Log(LogType.Info, "plugin:" + name + " enabled:" + enabled.ToString() + " (DLL plugin)\n");
-          }
-          else
-          {
-            logger.X_Log(LogType.Info, "plugin:" + name + " enabled:" + enabled.ToString() + " (LUA plugin)\n");
-            fileList.Add(new KeyValuePair<string, string>(name.ToLower() + ".lua", giderosPath + "/All Plugins/" + name + "/luaplugin/" + name.ToLower() + ".lua"));
-            //            dependencyGraph.AddCode(name, true);
-          }
-          */
 
 
 
@@ -518,11 +523,14 @@ namespace GiderosPlayerRemote {
         //logger.X_Log(LogType.Info, "val: " + filename + " key: " + p + "\n");
 
         DateTime mtime = File.GetLastWriteTime(absfilename);
+        ////if (File.Exists(absfilename)){
+          //if (iter == md5_.end() || mtime != iter.value().first)
+          //{
+          md5[filename] = new KeyValuePair<DateTime, byte[]>(mtime, MD5FromFile(absfilename));
+          //}
 
-        //if (iter == md5_.end() || mtime != iter.value().first)
-        //{
-        md5[filename] = new KeyValuePair<DateTime, byte[]>( mtime, MD5FromFile(absfilename));
-        //}
+        ////}
+
       }
 
       //logger("md5 time: " + (DateTime.Now - begin).TotalSeconds.ToString());
