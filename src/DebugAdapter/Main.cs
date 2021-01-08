@@ -52,8 +52,10 @@ namespace VSCodeDebug
       } catch (Exception e) {
 
          MessageBox.OK(e.ToString());
+
       }
     }
+
   } // End program class
 
 } // End namespace

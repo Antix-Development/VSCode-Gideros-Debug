@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.0.8] - 08-01-2021
+Changes
+- Resolved [Lua based plugins not working](https://github.com/Antix-Development/VSCode-Gideros-Debug/issues/4) issue.
+
+
+## [1.0.7] - 07-01-2021
+Changes
+- Fixed *Sequence contains no elements* issue which was caused by attempts to read and analyze empty .lua files.
+
 ## [1.0.6] - 06-01-2021
 Added
 - Extension now knows to exclude .lua files where the first line in the file ends with the string *"!NOEXEC"*

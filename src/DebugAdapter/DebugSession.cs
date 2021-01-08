@@ -160,18 +160,13 @@ namespace VSCodeDebug
 
     void Disconnect(string command, int seq, dynamic arguments)
     {
-      if (giderosRemoteController != null && stopGiderosWhenDebuggerStops)
-      {
+      if (giderosRemoteController != null && stopGiderosWhenDebuggerStops) {
           giderosRemoteController.SendStop();
       }
-      if (process != null)
-      {
-        try
-        {
+      if (process != null) {
+        try {
           process.Kill();
-        }
-        catch(Exception)
-        {
+        } catch(Exception) {
           // 정상 종료하면 이쪽 경로로 들어온다.
           // If it ends normally, you will enter this route.
         }
@@ -182,10 +177,8 @@ namespace VSCodeDebug
       toVSCode.Stop();
     }
 
-    void Initialize(string command, int seq, dynamic args)
-    {
-      SendResponse(command, seq, new Capabilities()
-      {
+    void Initialize(string command, int seq, dynamic args) {
+      SendResponse(command, seq, new Capabilities() {
         supportsConfigurationDoneRequest = true,
         supportsFunctionBreakpoints = false,
         supportsConditionalBreakpoints = false,
@@ -213,28 +206,26 @@ namespace VSCodeDebug
       return null;
     }
         
-    void Launch(string command, int seq, dynamic args)
-    {
+    void Launch(string command, int seq, dynamic args) {
       // 런치 전에 디버기가 접속할 수 있게 포트를 먼저 열어야 한다.
+      // Before launch, you need to open the port so the debugger can access it.
       var listener = PrepareForDebuggee(command, seq, args);
 
       string gprojPath = args.gprojPath;
-      if (gprojPath == null)
-      {
+      if (gprojPath == null) {
         //--------------------------------
         // validate argument 'executable'
         var runtimeExecutable = (string)args.executable;
         if (runtimeExecutable == null) { runtimeExecutable = ""; }
 
         runtimeExecutable = runtimeExecutable.Trim();
-        if (runtimeExecutable.Length == 0)
-        {
+        if (runtimeExecutable.Length == 0) {
           SendErrorResponse(command, seq, 3005, "Property 'executable' is empty.");
           return;
         }
+
         var runtimeExecutableFull = GetFullPath(runtimeExecutable);
-        if (runtimeExecutableFull == null)
-        {
+        if (runtimeExecutableFull == null) {
           SendErrorResponse(command, seq, 3006, "Runtime executable '{path}' does not exist.", new { path = runtimeExecutable });
           return;
         }
@@ -249,15 +240,12 @@ namespace VSCodeDebug
         // validate argument 'env'
         Dictionary<string, string> env = null;
         var environmentVariables = args.env;
-        if (environmentVariables != null)
-        {
+        if (environmentVariables != null) {
           env = new Dictionary<string, string>();
-          foreach (var entry in environmentVariables)
-          {
+          foreach (var entry in environmentVariables) {
             env.Add((string)entry.Name, entry.Value.ToString());
           }
-          if (env.Count == 0)
-          {
+          if (env.Count == 0) {
             env = null;
           }
         }
@@ -271,18 +259,14 @@ namespace VSCodeDebug
         process.StartInfo.Arguments = arguments;
 
         process.EnableRaisingEvents = true;
-        process.Exited += (object sender, EventArgs e) =>
-        {
-          lock (this)
-          {
+        process.Exited += (object sender, EventArgs e) => {
+          lock (this) {
             toVSCode.SendMessage(new TerminatedEvent());
           }
         };
 
-        if (env != null)
-        {
-          foreach (var entry in env)
-          {
+        if (env != null) {
+          foreach (var entry in env) {
             System.Environment.SetEnvironmentVariable(entry.Key, entry.Value);
           }
         }
@@ -290,38 +274,38 @@ namespace VSCodeDebug
         var cmd = string.Format("{0} {1}\n", runtimeExecutableFull, arguments);
         toVSCode.SendOutput("console", cmd);
 
-        try
-        {
+        try {
            process.Start();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
           SendErrorResponse(command, seq, 3012, "Can't launch terminal ({reason}).", new { reason = e.Message });
           return;
         }
-      }
-      else
-      {
+
+      } else {
+
         giderosRemoteController = new RemoteController();
 
         var connectStartedAt = DateTime.Now;
         bool alreadyLaunched = false;
-        while (!giderosRemoteController.TryStart("127.0.0.1", 15000, gprojPath, this))
-        {
-          if (DateTime.Now - connectStartedAt > TimeSpan.FromSeconds(10))
-          {
+
+        while (!giderosRemoteController.TryStart("127.0.0.1", 15000, gprojPath, this)) {
+
+          if (DateTime.Now - connectStartedAt > TimeSpan.FromSeconds(10)) {
+
             SendErrorResponse(command, seq, 3012, "Can't connect to GiderosPlayer.", new { });
             return;
-          }
-          else if (alreadyLaunched)
-          {
+
+          } else if (alreadyLaunched) {
+
             System.Threading.Thread.Sleep(100);
-          }
-          else
-          {
-            try
-            {
+
+          } else {
+
+            try {
               var giderosPath = (string)args.giderosPath;
+
+              giderosRemoteController.SetGiderosPath(giderosPath);
+
               process = new Process();
               process.StartInfo.UseShellExecute = true;
               process.StartInfo.CreateNoWindow = true;
@@ -336,9 +320,9 @@ namespace VSCodeDebug
               process.Start();
 
               Program.WaitingUI.SetLabelText("Launching " + process.StartInfo.FileName + " " + process.StartInfo.Arguments + "...");
-            }
-            catch (Exception e)
-            {
+
+            } catch (Exception e) {
+
               SendErrorResponse(command, seq, 3012, "Can't launch GiderosPlayer ({reason}).", new { reason = e.Message });
               return;
             }
