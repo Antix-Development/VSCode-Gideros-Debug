@@ -1,5 +1,7 @@
 # Gideros Debugger
 
+NOTE: This project is dead due to the inability of the Gideros community to particpate. It remains here in case that somebody else finds it of some use.
+
 Gideros Debugger is a modified version of the [VSCodeLuaDebug](https://github.com/devcat-studio/VSCodeLuaDebug/blob/master/Extension/README.md) by [devCAT](https://github.com/devcat-studio).
 
 Gideros Debugger exists to enable Gideros projects to be launched from within VSCode.
